@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conceptos de IoT: qué es el Internet de las Cosas, diferencias entre IoT, IIoT e IoE, y qué son un sensor y un actuador.">
+    <title>Conceptos | IoT</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="container header-layout">
+            <a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">⬡</span> IOT<span class="brand-subtitle">Internet de las Cosas</span></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Mostrar u ocultar el menú de navegación"><span aria-hidden="true">☰</span></button>
+            <nav id="menu-principal" aria-label="Navegación principal">
+                <ul class="nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="conceptos.html" class="activo" aria-current="page">Conceptos</a></li>
+                    <li><a href="arquitectura.html">Arquitectura</a></li>
+                    <li><a href="casos.html">Casos</a></li>
+                    <li><a href="creador.html">Creador</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenido" class="container" tabindex="-1">
+        <section class="page-intro" aria-labelledby="conceptos-title">
+            <p class="eyebrow">FUNDAMENTOS · EMPECEMOS POR LO BÁSICO</p>
+            <h1 id="conceptos-title">¿Qué es IoT, en serio?</h1>
+            <p class="lead">Antes de hablar de protocolos y nube, conviene entender la idea central: objetos cotidianos que generan datos solos y actúan sobre el mundo sin que alguien teclee cada dato.</p>
+        </section>
+
+        <!-- Definición principal con figura del sensor real usado en el laboratorio. -->
+        <section class="split" aria-labelledby="def-title">
+            <figure class="figura figura--retrato">
+                <img src="img/sensor-dht11.jpg" width="1000" height="1333" alt="Módulo sensor DHT11 azul de tres pines, con la rejilla del sensor de humedad arriba" loading="lazy" decoding="async">
+                <figcaption>DHT11: un sensor de temperatura y humedad de pocos dólares. Es la “U” (unidad) más común en los primeros proyectos IoT.</figcaption>
+            </figure>
+            <div>
+                <p class="eyebrow">LA DEFINICIÓN</p>
+                <h2 id="def-title">Objetos que sienten, deciden y comunican.</h2>
+                <p class="lead">El Internet de las Cosas (<span lang="en">Internet of Things</span>, IoT) es la red de objetos físicos que llevan <strong>sensores, software y conectividad</strong> para intercambiar datos con sistemas, otras máquinas y personas a través de internet.</p>
+                <p style="margin-top:1rem;">Su rasgo distintivo: ese intercambio ocurre en su mayoría <strong>sin intervención humana directa</strong>. Un sensor mide, un microcontrolador empaqueta el dato, una red lo transporta y un servicio en la nube decide qué hacer con él. Nadie teclea nada por el camino.</p>
+                <div class="nota">
+                    <p><strong>Idea clave:</strong> IoT no es “tener internet en un aparato”. Es que el aparato produzca y consuma <em>datos</em> por internet para cerrar un ciclo: percibir → transmitir → analizar → actuar.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- El ciclo completo en 4 pasos numerados. -->
+        <section class="section" aria-labelledby="ciclo-title">
+            <div class="section-heading">
+                <p class="eyebrow">EL CICLO COMPLETO</p>
+                <h2 id="ciclo-title">Cuatro pasos que se repiten en todo proyecto IoT.</h2>
+            </div>
+            <ol class="pasos">
+                <li><strong>Percibir</strong><span>El sensor convierte una magnitud física (temperatura, luz, movimiento) en una señal eléctrica legible para la placa.</span></li>
+                <li><strong>Transmitir</strong><span>La placa empaqueta el dato y lo envía por Wi-Fi, Bluetooth, LoRa o red celular usando un protocolo como MQTT.</span></li>
+                <li><strong>Analizar</strong><span>La nube almacena la serie de datos, aplica reglas (“si supera 30 °C…”) y detecta patrones con analítica.</span></li>
+                <li><strong>Actuar</strong><span>La decisión regresa al borde: se enciende un LED, se abre una válvula o llega una alerta al teléfono.</span></li>
+            </ol>
+        </section>
+
+        <!-- Sensor vs actuador: las dos piezas físicas de todo sistema. -->
+        <section class="section" aria-labelledby="sensor-title">
+            <div class="section-heading">
+                <p class="eyebrow">LAS DOS PIEZAS FÍSICAS</p>
+                <h2 id="sensor-title">Sensor y actuador: el cuerpo del sistema.</h2>
+                <p class="lead">Si el microcontrolador es el cerebro, estas son las manos y los sentidos. Se confunden con facilidad, pero van en direcciones opuestas.</p>
+            </div>
+            <div class="def-grid">
+                <article class="def">
+                    <h3>📡 Sensor</h3>
+                    <p><strong>Del mundo físico hacia el sistema.</strong> Convierte una magnitud (temperatura, humedad, presión, luz, distancia, aceleración) en una señal eléctrica que la placa puede leer. Ejemplos: DHT11 (temperatura y humedad), LDR (luz), HC-SR04 (ultrasonido), PIR (movimiento).</p>
+                </article>
+                <article class="def def--morado">
+                    <h3>⚡ Actuador</h3>
+                    <p><strong>Del sistema hacia el mundo físico.</strong> Recibe una señal eléctrica y produce una acción real: un LED se enciende, un relé conmuta un bombillo, un motor gira, una válvula de riego se abre, un zumbar avisa. Sin actuador, IoT solo observa; con actuador, IoT <em>hace</em>.</p>
+                </article>
+                <article class="def def--verde">
+                    <h3>🧠 Microcontrolador</h3>
+                    <p>La pieza intermedia: lee el sensor, ejecuta la lógica (¿supera el umbral?) y manda la orden al actuador. Arduino, ESP32 y Raspberry Pi son los tres nombres que dominan el aprendizaje.</p>
+                </article>
+                <article class="def def--naranja">
+                    <h3>📶 Conectividad</h3>
+                    <p>El transporte: Wi-Fi y Bluetooth para distancias cortas, LoRa y Zigbee para campos y edificios completos, red celular cuando no hay infraestructura. La elección define alcance, consumo y costo.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Diferencias entre IoT, IIoT e IoE. -->
+        <section class="section" aria-labelledby="familia-title">
+            <div class="section-heading">
+                <p class="eyebrow">NO TODOS SE LLAMAN IGUAL</p>
+                <h2 id="familia-title">IoT, IIoT e IoE: tres círculos distintos.</h2>
+            </div>
+            <div class="def-grid">
+                <article class="def">
+                    <h3>IoT — Internet de las Cosas</h3>
+                    <p>El término general. Incluye domótica, wearables, agricultura y ciudades. Prioriza conectividad y datos asequibles; la latencia de segundos suele ser aceptable y los presupuestos son ajustados.</p>
+                </article>
+                <article class="def def--naranja">
+                    <h3>IIoT — IoT Industrial</h3>
+                    <p>Misma base tecnológica, requisitos de planta: <strong>alta disponibilidad, latencia mínima y seguridad crítica</strong>. Habla con estándares industriales como OPC UA, Modbus y PROFINET. Sustenta el mantenimiento predictivo, la robótica y los gemelos digitales de una fábrica.</p>
+                </article>
+                <article class="def def--morado">
+                    <h3>IoE — Internet de Todo</h3>
+                    <p>Concepto de Cisco que amplía IoT con cuatro pilares: <strong>personas, procesos, datos y cosas</strong>. Tu smartwatch (cosa) lee tus datos de salud, ajusta tu rutina (proceso) y te avisa a ti (persona). IoT conecta objetos; IoE conecta el contexto completo.</p>
+                </article>
+            </div>
+            <div class="nota">
+                <p><strong>Resumen para el examen:</strong> todo IIoT es IoT, pero no todo IoT es IIoT. IoE no reemplaza a IoT: lo envuelve agregando personas y procesos al modelo.</p>
+            </div>
+        </section>
+
+        <!-- Recurso visual: la placa donde corre el código. -->
+        <section class="split split--invertido section" aria-labelledby="placa-title">
+            <figure class="figura">
+                <img src="img/circuito.jpg" width="1100" height="801" alt="Macro de una placa de circuito impreso con pistas de cobre y puntos de soldadura azules" loading="lazy" decoding="async">
+                <figcaption>Por debajo de toda la nube hay circuito: pistas, soldadura y corriente.</figcaption>
+            </figure>
+            <div>
+                <p class="eyebrow">DEL CÓDIGO AL CIRCUITO</p>
+                <h2 id="placa-title">Lo que tu código toca de verdad.</h2>
+                <p style="margin-top:1rem;">En IoT el software no vive solo en un servidor: corre en un dispositivo con memoria y energía limitadas. Programar para IoT implica cuidar el consumo (¿batería o corriente?), el tamaño del mensaje (bytes que viajan por radio) y la confiabilidad (¿y si se cae la red por diez minutos?).</p>
+                <ul class="lista-con">
+                    <li>Un sensor puede fallar o entregar ruido: los datos casi nunca son perfectos.</li>
+                    <li>Un mensaje perdido no siempre se reenvía: hay que decidir si importa o no.</li>
+                    <li>La seguridad empieza en el dispositivo: contraseñas débiles y firmwares sin actualizar son la puerta de entrada.</li>
+                </ul>
+                <div class="actions">
+                    <a class="button" href="arquitectura.html">Continuar: arquitectura <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-layout">
+            <p>Parcial 2 · Desarrollo de Software V</p>
+            <p>Tema 8 · Programación para IoT</p>
+            <a href="#contenido">Volver al contenido ↑</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>

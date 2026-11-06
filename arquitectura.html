@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arquitectura de IoT en 4 capas, modelo OSI aplicado a IoT, protocolos MQTT, HTTP y CoAP, y comparativa de Arduino, ESP32 y Raspberry Pi.">
+    <title>Arquitectura | IoT</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="container header-layout">
+            <a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">⬡</span> IOT<span class="brand-subtitle">Internet de las Cosas</span></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Mostrar u ocultar el menú de navegación"><span aria-hidden="true">☰</span></button>
+            <nav id="menu-principal" aria-label="Navegación principal">
+                <ul class="nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="conceptos.html">Conceptos</a></li>
+                    <li><a href="arquitectura.html" class="activo" aria-current="page">Arquitectura</a></li>
+                    <li><a href="casos.html">Casos</a></li>
+                    <li><a href="creador.html">Creador</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenido" class="container" tabindex="-1">
+        <section class="page-intro" aria-labelledby="arq-title">
+            <p class="eyebrow">CÓMO FUNCIONA POR DENTRO</p>
+            <h1 id="arq-title">De la placa a la nube, en cuatro capas.</h1>
+            <p class="lead">Cada dispositivo conectado, desde un semáforo hasta una fábrica, se puede leer como una pila de cuatro capas. Entender dónde vive cada responsabilidad es entender IoT.</p>
+        </section>
+
+        <!-- Diagrama original + descripción de cada capa. -->
+        <section class="section" aria-labelledby="capas-title">
+            <div class="section-heading">
+                <p class="eyebrow">EL DIAGRAMA</p>
+                <h2 id="capas-title">Las cuatro capas del sistema.</h2>
+                <p class="lead">Los datos suben (telemetría) y los comandos bajan (control). Ese flujo de doble sentido es la columna vertebral de cualquier plataforma IoT.</p>
+            </div>
+
+            <figure class="figura">
+                <img src="img/arquitectura-capas.svg" width="960" height="640" alt="Diagrama de las cuatro capas de IoT apiladas: dispositivos con sensores, red con Wi-Fi y MQTT, procesamiento en la nube y aplicación con paneles; flechas indican los datos que suben y los comandos que bajan" loading="lazy" decoding="async">
+                <figcaption>Figura 1 · Arquitectura de 4 capas. El borde (edge) responde en milisegundos; la nube decide con la vista global.</figcaption>
+            </figure>
+
+            <div class="capas">
+                <article class="capa">
+                    <span class="capa-num">CAPA 1 · DISPOSITIVOS (BORDE)</span>
+                    <h3>Sensores, actuadores y placas</h3>
+                    <p>Aquí se mide y se actúa. La placa lee sus entradas (GPIO, conversores analógico-digital), decide localmente y ejecuta. Si la red se cae, un buen proyecto sigue funcionando en modo autónomo: es el <em>edge computing</em>. Trabaja con voltajes de 3.3 V o 5 V, memoria de KB y energía medida en miliamperios.</p>
+                </article>
+                <article class="capa">
+                    <span class="capa-num">CAPA 2 · RED Y COMUNICACIÓN</span>
+                    <h3>El transporte del dato</h3>
+                    <p>Wi-Fi y Bluetooth dentro del edificio, LoRa y Zigbee para distancias largas con poco consumo, red celular (NB-IoT / 4G) donde no hay infraestructura. Sobre esa vía viajan los mensajes con protocolos como MQTT, CoAP o HTTP, protegidos con TLS o DTLS.</p>
+                </article>
+                <article class="capa">
+                    <span class="capa-num">CAPA 3 · PROCESAMIENTO Y NUBE</span>
+                    <h3>Almacenar, reglas y analítica</h3>
+                    <p>El broker recibe los mensajes y los distribuye; las bases de datos de series temporales guardan el histórico; los motores de reglas evalúan umbrales (“si supera 30 °C, avisa”) y la analítica busca patrones. Aquí se decide a escala global y se exponen APIs para todo lo demás.</p>
+                </article>
+                <article class="capa">
+                    <span class="capa-num">CAPA 4 · APLICACIÓN</span>
+                    <h3>Paneles, apps y alertas</h3>
+                    <p>Lo que la persona ve: tableros web con gráficas en tiempo real, aplicaciones móviles, notificaciones push y controles remotos. Es la cara visible del sistema y donde se aplica la usabilidad: estado claro, errores comprensibles y respuesta inmediata a cada acción.</p>
+                </article>
+            </div>
+
+            <!-- Borde vs. nube: la decisión de diseño más importante de IoT. -->
+            <section class="split section" aria-labelledby="nube-title">
+                <figure class="figura">
+                    <img src="img/datacenter.jpg" width="1000" height="664" alt="Pasillo de un centro de datos con filas de racks de servidores iluminados en azul" loading="lazy" decoding="async">
+                    <figcaption>La nube no es un concepto abstracto: son miles de servidores en salas como esta.</figcaption>
+                </figure>
+                <div>
+                    <p class="eyebrow">BORDE VS. NUBE</p>
+                    <h2 id="nube-title">¿Qué se resuelve en el dispositivo y qué allá arriba?</h2>
+                    <p style="margin-top:1rem;">Esta es la pregunta de diseño clave de todo proyecto IoT. En el borde (el dispositivo) se gana <strong>velocidad y privacidad</strong>: si el sensor detecta una persona encendiendo el horno, la respuesta debe ser en milisegundos y sin esperar internet. En la nube se gana <strong>vista global y potencia</strong>: comparar el consumo de mil hogares o entrenar un modelo de predicción no lo hace un ESP32.</p>
+                    <ul class="lista-con">
+                        <li><strong>En el borde:</strong> tiempo real, funciona sin red, decide con un solo dato, poca memoria.</li>
+                        <li><strong>En la nube:</strong> histórico completo, analítica y aprendizaje automático, miles de dispositivos a la vez.</li>
+                        <li><strong>La fórmula habitual:</strong> procesa cerca, aprende lejos — el dispositivo reacciona y la nube aprende del conjunto.</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+        <!-- Protocolos: explicación + tabla comparativa + nota sobre OSI. -->
+        <section class="section" aria-labelledby="proto-title">
+            <div class="section-heading">
+                <p class="eyebrow">EL LENGUAJE DE LA RED</p>
+                <h2 id="proto-title">Protocolos: MQTT, HTTP, CoAP y compañía.</h2>
+                <p class="lead">Un protocolo es el acuerdo sobre cómo se ve un mensaje: su encabezado, su tamaño y quién responde. En IoT ese acuerdo define cuánta batería gasta el dispositivo y qué tan confiable llega el dato.</p>
+            </div>
+
+            <div class="def-grid">
+                <article class="def">
+                    <h3><span class="chip">MQTT</span> El rey de IoT</h3>
+                    <p>Funciona por <strong>publicación/suscripción</strong>: el dispositivo publica en un <em>topic</em> (<code>casa/sala/temp</code>) y el broker entrega el mensaje a quien esté suscrito. El emisor no sabe ni le importa quién recibe: están desacoplados. Ofrece tres niveles de calidad de servicio (QoS 0: una vez, sin garantía; QoS 1: al menos una vez; QoS 2: exactamente una vez).</p>
+                </article>
+                <article class="def def--morado">
+                    <h3><span class="chip">HTTP</span> El conocido</h3>
+                    <p>Petición y respuesta, el mismo modelo del navegador. Es universal, fácil de probar y se integra con cualquier API web, pero cada mensaje lleva encabezados redundantes: para un sensor que envía 8 bytes cada minuto, HTTP es un traje demasiado pesado.</p>
+                </article>
+                <article class="def def--verde">
+                    <h3><span class="chip">CoAP</span> El minimalista</h3>
+                    <p>Diseñado para dispositivos restringidos: corre sobre <strong>UDP</strong> en vez de TCP, con cabeceras de apenas unos bytes, y permite mensajes multicast. Soporta métodos como GET, PUT y POST al estilo HTTP, y se asegura con DTLS. Ideal para sensores con batería.</p>
+                </article>
+                <article class="def def--naranja">
+                    <h3><span class="chip">LoRaWAN</span> La red de campo</h3>
+                    <p>No es un protocolo de aplicación sino una <strong>red LPWAN</strong>: transmite paquetes pequeños hasta varios kilómetros con años de batería. Junto a NB-IoT y Zigbee, resuelve la capa de conectividad cuando Wi-Fi no llega al campo ni a toda la ciudad.</p>
+                </article>
+            </div>
+
+            <div class="tabla-scroll">
+                <table class="tabla">
+                    <caption>Tabla 1 · Comparativa de protocolos y redes usados en IoT.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Protocolo</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Transporte</th>
+                            <th scope="col">Ideal para</th>
+                            <th scope="col">Lo mejor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MQTT</td>
+                            <td>Publicación / suscripción vía broker</td>
+                            <td>TCP · 1883 (8883 con TLS)</td>
+                            <td>Muchos dispositivos enviando pocos bytes</td>
+                            <td>Ligero, desacoplado y con QoS configurable</td>
+                        </tr>
+                        <tr>
+                            <td>HTTP / HTTPS</td>
+                            <td>Cliente / servidor (petición-respuesta)</td>
+                            <td>TCP · 80 / 443</td>
+                            <td>APIs web, configuración y actualizaciones</td>
+                            <td>Universal: se integra con todo</td>
+                        </tr>
+                        <tr>
+                            <td>CoAP</td>
+                            <td>Petición-respuesta (también suscripción)</td>
+                            <td>UDP · 5683 (con DTLS)</td>
+                            <td>Dispositivos con batería y redes lentas</td>
+                            <td>Cabeceras mínimas y multicast</td>
+                        </tr>
+                        <tr>
+                            <td>LoRaWAN</td>
+                            <td>Red LPWAN (capas física y de red)</td>
+                            <td>Radio de espectro libre · 868/915 MHz</td>
+                            <td>Cultivos, ciudades y activos en movimiento</td>
+                            <td>Kilómetros de alcance con años de batería</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                <p><strong>El modelo OSI visto desde IoT:</strong> el estándar de 7 capas sigue vigente, pero los objetos no lo usan entero. LoRa y Zigbee implementan sobre todo las capas física y de enlace; <span lang="en">6LoWPAN</span> comprime IPv6 sobre redes de bajo consumo (capa 3); el transporte suele ser UDP o TCP (capa 4); y MQTT o CoAP viven en la capa de aplicación (capa 7). Por eso se dice que IoT “aplasta” el modelo: gana lo mínimo para funcionar con poco consumo.</p>
+            </div>
+        </section>
+
+        <!-- Hardware: tabla comparativa + tarjetas con imagen de cada placa. -->
+        <section class="section" aria-labelledby="hardware-title">
+            <div class="section-heading">
+                <p class="eyebrow">EL HARDWARE</p>
+                <h2 id="hardware-title">Arduino, ESP32 y Raspberry Pi: ¿cuál elijo?</h2>
+                <p class="lead">Las tres placas más usadas no compiten: resuelven problemas distintos. Esta comparativa es la base para cualquier decisión de proyecto.</p>
+            </div>
+
+            <div class="tabla-scroll">
+                <table class="tabla">
+                    <caption>Tabla 2 · Comparativa de las placas más usadas en aprendizaje de IoT.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Placa</th>
+                            <th scope="col">Procesador</th>
+                            <th scope="col">RAM</th>
+                            <th scope="col">Conectividad</th>
+                            <th scope="col">Ideal para</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Arduino Uno</td>
+                            <td>ATmega328P de 8 bits a 16 MHz</td>
+                            <td>2 KB</td>
+                            <td>Sin radio (se agrega por shield)</td>
+                            <td>Aprender electrónica y prototipos simples</td>
+                        </tr>
+                        <tr>
+                            <td>ESP32</td>
+                            <td>Xtensa LX6, doble núcleo a 240 MHz</td>
+                            <td>≈520 KB</td>
+                            <td>Wi-Fi + Bluetooth LE integrados</td>
+                            <td>Nodos conectados baratos y de bajo consumo</td>
+                        </tr>
+                        <tr>
+                            <td>Raspberry Pi 4</td>
+                            <td>Broadcom BCM2711, 4 núcleos a 1.5 GHz</td>
+                            <td>1 a 8 GB</td>
+                            <td>Ethernet, Wi-Fi, Bluetooth y USB</td>
+                            <td>Edge computing, gateways y visión por computadora</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-list" style="margin-top:2rem;">
+                <article class="card card-media">
+                    <img src="img/arduino-uno.jpg" width="1000" height="752" alt="Placa Arduino Uno azul con el chip ATmega328P, los conectores hembra y el conector USB" loading="lazy" decoding="async">
+                    <div class="card-body">
+                        <span class="card-number">01 / EL MAESTRO</span>
+                        <h3>Arduino Uno</h3>
+                        <p>La puerta de entrada clásica: un solo chip, 14 pines digitales y un lenguaje sencillo. Perfecto para aprender a leer un sensor y encender un LED; sin radio de fábrica, no sirve solo como dispositivo conectado.</p>
+                    </div>
+                </article>
+                <article class="card card-media">
+                    <img src="img/esp32.jpg" width="1000" height="1334" alt="Placa ESP32 montada sobre una protoboard pequeña con una protoboard blanca debajo" loading="lazy" decoding="async">
+                    <div class="card-body">
+                        <span class="card-number">02 / EL CONECTADO</span>
+                        <h3>ESP32</h3>
+                        <p>El caballo de batalla del IoT casero y profesional: doble núcleo, Wi-Fi y Bluetooth en un chip que cuesta poco y consume poco. Publica en MQTT casi con dos líneas de código.</p>
+                    </div>
+                </article>
+                <article class="card card-media">
+                    <img src="img/raspberry-pi.jpg" width="1000" height="668" alt="Vista cenital de una Raspberry Pi 4 Model B con sus puertos USB, HDMI y el conector GPIO" loading="lazy" decoding="async">
+                    <div class="card-body">
+                        <span class="card-number">03 / EL ORDENADOR</span>
+                        <h3>Raspberry Pi 4</h3>
+                        <p>Una computadora completa que corre Linux: aguanta bases de datos, visión por computadora y papeles de gateway. Más potencia y más consumo; no es para correr con batería de años.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Laboratorio interactivo (controlado con js/script.js). -->
+        <section class="section" aria-labelledby="lab-title">
+            <div class="section-heading">
+                <p class="eyebrow">PONLO A FUNCIONAR</p>
+                <h2 id="lab-title">Laboratorio: sensor y actuador simulados.</h2>
+                <p class="lead">Un simulador del ciclo completo: publica la lectura de un DHT11 y recibe el comando de encendido de un LED, tal como lo haría un ESP32 conectado a un broker MQTT.</p>
+            </div>
+
+            <div class="lab">
+                <div class="lab-grid">
+                    <div class="lab-col">
+                        <div class="lab-panel">
+                            <!-- aria-hidden: el estado real se informa con el texto de al lado. -->
+                            <div class="led" id="led" aria-hidden="true"></div>
+                            <div>
+                                <p class="eyebrow">ACTUADOR · LED EN EL ESP32</p>
+                                <h3>Estado: <span id="estado-led">APAGADO</span></h3>
+                                <p class="lab-nota">Presiona el botón y observa cómo cambia el estado, el mensaje y el registro. Eso es retroalimentación inmediata.</p>
+                            </div>
+                        </div>
+
+                        <div class="lab-botones">
+                            <button class="button" type="button" id="btn-led" aria-pressed="false">Encender LED</button>
+                            <button class="button button--suave" type="button" id="btn-leer">Tomar lectura del DHT11</button>
+                        </div>
+
+                        <dl class="lab-estado">
+                            <div>
+                                <dt>Temperatura</dt>
+                                <dd id="valor-temp">—</dd>
+                            </div>
+                            <div>
+                                <dt>Humedad</dt>
+                                <dd id="valor-humedad">—</dd>
+                            </div>
+                            <div>
+                                <dt>Topic base</dt>
+                                <dd>casa/</dd>
+                            </div>
+                        </dl>
+
+                        <!-- Contenedor de mensajes: lo gestiona mostrarMensaje(). -->
+                        <div id="lab-mensaje" class="mensaje" role="status" aria-live="polite"></div>
+                    </div>
+
+                    <div class="lab-col">
+                        <p class="eyebrow">REGISTRO · MENSAJES MQTT</p>
+                        <ul id="registro" class="registro" aria-live="polite" aria-label="Registro de mensajes publicados y recibidos"></ul>
+                        <p class="campo-nota">Cada línea es un mensaje que entró o salió por el broker. Las lecturas nuevas aparecen abajo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-layout">
+            <p>Parcial 2 · Desarrollo de Software V</p>
+            <p>Tema 8 · Programación para IoT</p>
+            <a href="#contenido">Volver al contenido ↑</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>
