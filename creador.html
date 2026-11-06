@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Breve reseña del creador del sitio web del Parcial 2 sobre Programación para IoT, y formulario de contacto validado con JavaScript.">
+    <title>Creador | IoT</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="container header-layout">
+            <a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">⬡</span> IOT<span class="brand-subtitle">Internet de las Cosas</span></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Mostrar u ocultar el menú de navegación"><span aria-hidden="true">☰</span></button>
+            <nav id="menu-principal" aria-label="Navegación principal">
+                <ul class="nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="conceptos.html">Conceptos</a></li>
+                    <li><a href="arquitectura.html">Arquitectura</a></li>
+                    <li><a href="casos.html">Casos</a></li>
+                    <li><a href="creador.html" class="activo" aria-current="page">Creador</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenido" class="container" tabindex="-1">
+        <section class="page-intro" aria-labelledby="creador-title">
+            <p class="eyebrow">SOBRE EL AUTOR DEL SITIO</p>
+            <h1 id="creador-title">Hola, soy [Tu Nombre].</h1>
+            <p class="lead">Estudiante de Desarrollo de Software V, autor de este recorrido por el Internet de las Cosas.</p>
+        </section>
+
+        <!--
+            PARA PERSONALIZAR:
+            1. Reemplaza img/creador.svg por tu foto (ej. img/tu-foto.jpg) y
+               actualiza src, width, height y alt de la etiqueta <img>.
+            2. Edita los textos entre corchetes [ ] con tus datos reales.
+        -->
+        <section class="perfil" aria-labelledby="resena-title">
+            <img class="perfil-foto" src="img/creador.svg" width="480" height="480" alt="Espacio reservado para la fotografía del creador: ilustración de un avatar con la leyenda Tu foto aquí" loading="lazy" decoding="async">
+
+            <div>
+                <p class="eyebrow">RESEÑA BREVE</p>
+                <h2 id="resena-title">Un poco sobre mí.</h2>
+                <p style="margin-top:1rem;">Soy estudiante de <strong>Desarrollo de Software V</strong> en la Universidad Tecnológica de Panamá. En este parcial elegí el tema 8, <strong>Programación para IoT</strong>, porque me intrigaba entender cómo objetos comunes —una luz, un sensor de humedad, un semáforo— terminan tomando decisiones por sí mismos a través de internet.</p>
+                <p style="margin-top:1rem;">Entre mis <strong>hobbies</strong> están [tus hobbies: por ejemplo, los videojuegos, la música, armar circuitos o salir a caminar]. Fuera del aula disfruto [actividad adicional], y esa curiosidad por lo técnico es lo que me llevó a querer programar cosas que existen fuera de la pantalla.</p>
+                <p style="margin-top:1rem;"><strong>Mi motivación para elegir este tema:</strong> [por qué elegiste IoT: por ejemplo, “porque en mi barrio todavía se lee el medidor de luz a mano y me pareció interesante imaginar cómo se automatiza eso”]. Espero que este sitio te ayude a entender el tema como a mí me ayudó a construirlo.</p>
+
+                <dl class="perfil-datos">
+                    <div>
+                        <dt>Carrera</dt>
+                        <dd>Desarrollo de Software V</dd>
+                    </div>
+                    <div>
+                        <dt>Tema elegido</dt>
+                        <dd>8 · Programación para IoT</dd>
+                    </div>
+                    <div>
+                        <dt>Parcial</dt>
+                        <dd>Parcial 2 · [fecha de entrega]</dd>
+                    </div>
+                    <div>
+                        <dt>Profesor</dt>
+                        <dd>Ing. José Javier Chirú F.</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- Formulario con validación en js/script.js (sin recargar la página). -->
+        <section class="section" aria-labelledby="contacto-title">
+            <div class="section-heading">
+                <p class="eyebrow">HABLEMOS</p>
+                <h2 id="contacto-title">Envíame un mensaje.</h2>
+                <p class="lead">El formulario valida los datos antes de enviarlos y nunca recarga la página: es un envío simulado con JavaScript puro.</p>
+            </div>
+
+            <form class="formulario" id="form-contacto" novalidate>
+                <div class="campo">
+                    <label for="nombre">Nombre completo <span class="obligatorio" aria-hidden="true">*</span></label>
+                    <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Ej. Ana Sofía Pérez" aria-describedby="nota-nombre">
+                    <span class="campo-nota" id="nota-nombre">Mínimo 3 caracteres.</span>
+                </div>
+
+                <div class="campo">
+                    <label for="correo">Correo electrónico <span class="obligatorio" aria-hidden="true">*</span></label>
+                    <input type="email" id="correo" name="correo" autocomplete="email" placeholder="Ej. ana@correo.com" aria-describedby="nota-correo">
+                    <span class="campo-nota" id="nota-correo">Nunca compartiremos tu correo.</span>
+                </div>
+
+                <div class="campo">
+                    <label for="asunto">Asunto <span class="obligatorio" aria-hidden="true">*</span></label>
+                    <select id="asunto" name="asunto" aria-describedby="nota-asunto">
+                        <option value="">— Elige una opción —</option>
+                        <option value="consulta">Consulta sobre el proyecto</option>
+                        <option value="sugerencia">Sugerencia para el sitio</option>
+                        <option value="colaboracion">Propuesta de colaboración</option>
+                        <option value="otro">Otro tema</option>
+                    </select>
+                    <span class="campo-nota" id="nota-asunto">Elige la opción más cercana.</span>
+                </div>
+
+                <div class="campo">
+                    <label for="mensaje">Mensaje <span class="obligatorio" aria-hidden="true">*</span></label>
+                    <textarea id="mensaje" name="mensaje" placeholder="Cuéntame en qué te puedo ayudar…" aria-describedby="nota-mensaje"></textarea>
+                    <span class="campo-nota" id="nota-mensaje">Mínimo 10 caracteres.</span>
+                </div>
+
+                <button class="button" type="submit">Enviar mensaje <span aria-hidden="true">→</span></button>
+
+                <!-- Resultado del envío: lo escribe la función mostrarMensaje(). -->
+                <div id="form-mensaje" class="mensaje" role="status" aria-live="polite"></div>
+            </form>
+
+            <div class="nota">
+                <p><strong>Créditos de imágenes:</strong> las fotografías de este sitio provienen de Wikimedia Commons y se usan con fines educativos; los detalles de autoría y licencia están en <code>img/CREDITOS.md</code>. El diagrama de arquitectura y la ilustración del perfil fueron creados para este proyecto.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-layout">
+            <p>Parcial 2 · Desarrollo de Software V</p>
+            <p>Tema 8 · Programación para IoT</p>
+            <a href="#contenido">Volver al contenido ↑</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicaciones reales de IoT: ciudades inteligentes con semáforos adaptativos, domótica, agricultura de precisión y salud con wearables.">
+    <title>Casos de uso | IoT</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="container header-layout">
+            <a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">⬡</span> IOT<span class="brand-subtitle">Internet de las Cosas</span></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Mostrar u ocultar el menú de navegación"><span aria-hidden="true">☰</span></button>
+            <nav id="menu-principal" aria-label="Navegación principal">
+                <ul class="nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="conceptos.html">Conceptos</a></li>
+                    <li><a href="arquitectura.html">Arquitectura</a></li>
+                    <li><a href="casos.html" class="activo" aria-current="page">Casos</a></li>
+                    <li><a href="creador.html">Creador</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenido" class="container" tabindex="-1">
+        <section class="page-intro" aria-labelledby="casos-title">
+            <p class="eyebrow">IOT EN LA CALLE, EN LA CASA Y EN EL CAMPO</p>
+            <h1 id="casos-title">Cuatro casos que ya funcionan hoy.</h1>
+            <p class="lead">No es ciencia ficción: cada caso resuelve un problema concreto con sensores, conectividad y datos. Se presentan con la misma estructura: problema, solución IoT y beneficio.</p>
+        </section>
+
+        <!-- Caso 1: ciudades inteligentes -->
+        <section class="split section" aria-labelledby="caso-ciudad">
+            <figure class="figura">
+                <img src="img/ciudad-inteligente.jpg" width="1000" height="666" alt="Cruce urbano de noche con semáforos encendidos, motociclistas detenidos y un cruce peatonal pintado de rojo" loading="lazy" decoding="async">
+                <figcaption>Semáforos, cámaras y sensores de presencia: la primera capa de una ciudad que reacciona al tráfico.</figcaption>
+            </figure>
+            <div>
+                <p class="eyebrow">CASO 01 · CIUDADES INTELIGENTES</p>
+                <h2 id="caso-ciudad">Semáforos que miran el tráfico.</h2>
+                <p style="margin-top:1rem;">En las intersecciones tradicionales el tiempo de luz es fijo, aunque a las 3 a. m. no pase nadie y a las 7 p. m. haya cola de dos cuadras. Las ciudades inteligentes conectan esos semáforos a una red (a menudo LoRaWAN o fibra municipal) y dejan que un sistema ajuste los tiempos según lo que realmente ocurre.</p>
+                <ul class="lista-con">
+                    <li><strong>Problema:</strong> congestión, emisiones por vehículos en ralentí y alumbrado gastando energía de más.</li>
+                    <li><strong>Solución IoT:</strong> sensores de inducción o cámaras cuentan vehículos, los semáforos publican su estado por MQTT y un servicio en la nube recalcula los tiempos de luz en minutos; a eso se suman parquímetros con sensor de ocupación y contenedores que avisan cuando están llenos.</li>
+                    <li><strong>Beneficio:</strong> menos tiempo de espera, menos combustible quemado y rutas de basura que solo pasan donde hace falta.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Caso 2: domótica -->
+        <section class="split split--invertido section" aria-labelledby="caso-domotica">
+            <figure class="figura">
+                <img src="img/domotica.jpg" width="1000" height="750" alt="Altavoz inteligente redondo de color gris claro sobre un fondo neutro" loading="lazy" decoding="async">
+                <figcaption>El altavoz con asistente suele ser la “puerta” de la casa: recibe la orden de voz y la reparte por la red.</figcaption>
+            </figure>
+            <div>
+                <p class="eyebrow">CASO 02 · DOMÓTICA</p>
+                <h2 id="caso-domotica">Una casa que escucha y ahorra.</h2>
+                <p style="margin-top:1rem;">La domótica lleva iluminación, climatización, cerraduras y cámaras a un solo panel: la app o la voz del asistente. Detrás, cada dispositivo habla por Wi-Fi, Zigbee o el estándar <span lang="en">Matter</span>, diseñado para que marcas distintas se entiendan entre sí.</p>
+                <ul class="lista-con">
+                    <li><strong>Problema:</strong> bombillos olvidados encendidos, clima trabajando en casas vacías y control disperso en muchos interruptores.</li>
+                    <li><strong>Solución IoT:</strong> bombillos y termostatos conectados ejecutan <em>escenas</em> (“modo noche”), los sensores de presencia apagan lo que no se usa y todo queda en un panel único con historial de consumo.</li>
+                    <li><strong>Beneficio:</strong> comodidad (control por voz o desde el celular) y una factura de luz más baja al eliminar el desperdicio.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Caso 3: agricultura de precisión -->
+        <section class="split section" aria-labelledby="caso-agro">
+            <figure class="figura">
+                <img src="img/agricultura.jpg" width="1000" height="750" alt="Sensor de suelo NutRE clavado en la tierra junto a hojas secas de un cultivo" loading="lazy" decoding="async">
+                <figcaption>Un sensor de humedad de suelo decide cuándo regar: el riego deja de ser una rutina y pasa a ser una respuesta.</figcaption>
+            </figure>
+            <div>
+                <p class="eyebrow">CASO 03 · AGRICULTURA DE PRECISIÓN</p>
+                <h2 id="caso-agro">Riego solo cuando la planta lo pide.</h2>
+                <p style="margin-top:1rem;">Regar de madrugada “por si acaso” desperdicia agua y pudre raíces. En la agricultura de precisión, sensores de humedad de suelo, temperatura y lluvia miden el campo real; si el terreno todavía está húmedo, la válvula no se abre.</p>
+                <ul class="lista-con">
+                    <li><strong>Problema:</strong> agua desperdiciada, riego uniforme en terrenos que no son uniformes y decisiones a ciegas.</li>
+                    <li><strong>Solución IoT:</strong> los sensores publican lecturas cada pocos minutos (ideal para redes LoRa de bajo consumo), la nube cruza el dato con el pronóstico del clima y abre el riego por goteo por zonas; alertas de helada o plaga llegan al teléfono del productor.</li>
+                    <li><strong>Beneficio:</strong> menos consumo de agua y energía, cultivos más sanos y decisiones basadas en datos en vez de en costumbre.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Caso 4: salud y wearables -->
+        <section class="split split--invertido section" aria-labelledby="caso-salud">
+            <figure class="figura">
+                <img src="img/wearable-salud.jpg" width="1000" height="666" alt="Persona ajustando un reloj inteligente en su muñeca con la mano libre" loading="lazy" decoding="async">
+                <figcaption>El wearable es un laboratorio permanente: mide mientras duermes, caminas o entrenas.</figcaption>
+            </figure>
+            <div>
+                <p class="eyebrow">CASO 04 · SALUD Y WEARABLES</p>
+                <h2 id="caso-salud">Un hospital que cabe en la muñeca.</h2>
+                <p style="margin-top:1rem;">Los relojes y pulseras inteligentes registran frecuencia cardiaca, oxígeno, sueño y electrocardiograma; los parches continuos siguen la glucosa en sangre. El dato viaja al celular y, con consentimiento, al médico.</p>
+                <ul class="lista-con">
+                    <li><strong>Problema:</strong> las condiciones crónicas se detectan tarde y el control ocurre solo en visitas espaciadas.</li>
+                    <li><strong>Solución IoT:</strong> el wearable recoge métricas 24/7, la nube detecta anomalías (caídas, ritmo irregular) y dispara alertas a la familia o al equipo médico; surge la telemedicina con datos reales, no con memoria del paciente.</li>
+                    <li><strong>Beneficio:</strong> detección temprana, seguimiento continuo y menos viajes al centro de salud. A cambio, exige <strong>seguridad seria</strong>: los datos de salud son sensibles y deben cifrarse y usarse con consentimiento (en Panamá, la Ley 81 de 2019 regula los datos personales).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Mini casos complementarios -->
+        <section class="section" aria-labelledby="mas-title">
+            <div class="section-heading">
+                <p class="eyebrow">Y AUNQUE NO LO CREAS…</p>
+                <h2 id="mas-title">Tres dominios más donde IoT ya vive.</h2>
+            </div>
+            <div class="def-grid">
+                <article class="def">
+                    <h3>⚡ Energía</h3>
+                    <p>Los <strong>medidores inteligentes</strong> envían el consumo por intervalos cortos y permiten tarifas por hora; la red detecta cortes sin que nadie llame. Es el caso estrella del IIoT.</p>
+                </article>
+                <article class="def def--morado">
+                    <h3>🚚 Logística</h3>
+                    <p>Contenedores con <strong>GPS y sensores de temperatura</strong> vigilan la cadena de frío del alimento perecedero; etiquetas RFID registran cada paso del envío sin abrir la caja.</p>
+                </article>
+                <article class="def def--verde">
+                    <h3>🌍 Ambiente</h3>
+                    <p>Estaciones de bajo costo miden <strong>calidad del aire, ruido y nivel de agua</strong> en tiempo real; los datos abiertos permiten mapas de contaminación que la ciudadanía puede usar.</p>
+                </article>
+            </div>
+            <div class="nota">
+                <p><strong>Hilo común de los cuatro casos:</strong> siempre está el ciclo completo —sensor que percibe, red que transmite, nube que analiza y actuador que responde—. Cambia el contexto, no la arquitectura.</p>
+            </div>
+            <div class="actions">
+                <a class="button" href="creador.html">Conocer al creador <span aria-hidden="true">→</span></a>
+                <a class="text-link" href="arquitectura.html">Revisar la arquitectura →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-layout">
+            <p>Parcial 2 · Desarrollo de Software V</p>
+            <p>Tema 8 · Programación para IoT</p>
+            <a href="#contenido">Volver al contenido ↑</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>
