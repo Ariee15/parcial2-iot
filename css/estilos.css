@@ -1,0 +1,972 @@
+/* =========================================================
+   ESTILOS DEL SITIO "IoT" — Autoría propia (sin plantillas)
+   Autor: [Tu nombre] · Desarrollo de Software V
+   Estructura del archivo:
+     1. Variables y reset          5. Encabezado y navegación
+     2. Tipografía base            6. Secciones, tarjetas y tablas
+     3. Utilidades generales       7. Laboratorio (JS) y formulario
+     4. Botones y enlaces          8. Pie, responsive y ajustes
+   ========================================================= */
+
+/* ---------- 1. Variables y reset ---------- */
+:root {
+    /* Paleta tecnológica: azul profundo + morado/celeste, con verde neón
+       para estados activos y naranja para alertas. */
+    --azul-profundo: #0b1220;      /* fondo principal */
+    --azul-noche: #101a2e;         /* fondo elevado (encabezado, franjas) */
+    --gris-oscuro: #1a2233;        /* tarjetas */
+    --gris-borde: #2a3450;         /* bordes y separadores */
+    --blanco-hueso: #f4f6fb;       /* texto principal */
+    --gris-texto: #a9b3c7;         /* texto secundario (contraste ≥ 4.5:1) */
+    --morado: #6d4af5;             /* acento primario (contraste 5.3:1 con blanco) */
+    --morado-claro: #a78bfa;       /* acento para texto pequeño */
+    --celeste: #38bdf8;            /* acento secundario */
+    --verde-neon: #39ff88;         /* sensor encendido / mensajes de éxito */
+    --naranja: #ff8a3d;            /* alertas y advertencias */
+    --rojo: #ff5d73;               /* errores */
+    --radio: 1.1rem;               /* radio de esquinas base */
+    --sombra: 0 12px 30px rgba(3, 7, 18, 0.45);
+    --fuente: "Segoe UI", system-ui, Arial, sans-serif;
+}
+
+/* color-scheme le indica al navegador que use la interfaz oscura
+   (barras de scroll, calendarios, controles nativos). */
+html {
+    color-scheme: dark;
+    /* Desplazamiento suave, respetando la preferencia del usuario. */
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--fuente);
+    color: var(--blanco-hueso);
+    line-height: 1.7;
+    /* Degradados sutiles que dan profundidad sin usar imágenes. */
+    background:
+        radial-gradient(ellipse at 85% -5%, rgba(124, 92, 255, 0.18), transparent 45%),
+        radial-gradient(ellipse at -10% 35%, rgba(56, 189, 248, 0.10), transparent 42%),
+        var(--azul-profundo);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;               /* empuja el pie hacia abajo en páginas cortas */
+}
+
+h1, h2, h3, p, figure, blockquote {
+    margin: 0;
+}
+
+h1, h2, h3 {
+    line-height: 1.15;
+    font-weight: 750;
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: -0.04em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.3rem); letter-spacing: -0.025em; }
+h3 { font-size: 1.25rem; }
+
+p { color: var(--gris-texto); }
+
+a {
+    color: var(--celeste);
+    text-underline-offset: 0.25em;
+}
+
+a:hover { color: var(--blanco-hueso); }
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;          /* respeta width/height del HTML: sin saltos de layout */
+}
+
+code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.9em;
+    background: rgba(124, 92, 255, 0.16);
+    border: 1px solid var(--gris-borde);
+    border-radius: 0.4rem;
+    padding: 0.08em 0.35em;
+    color: var(--morado-claro);
+}
+
+/* Foco visible y consistente en todo el sitio (accesibilidad de teclado). */
+:focus-visible {
+    outline: 3px solid var(--celeste);
+    outline-offset: 3px;
+    border-radius: 0.3rem;
+}
+
+/* ---------- 2. Utilidades generales ---------- */
+.container {
+    width: min(74rem, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+/* Enlace para saltar al contenido (solo visible al recibir foco). */
+.skip-link {
+    position: absolute;
+    top: 0.5em;
+    left: 1rem;
+    transform: translateY(-200%);
+    background: var(--blanco-hueso);
+    color: var(--azul-profundo);
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    z-index: 50;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    color: var(--azul-profundo);
+}
+
+/* Texto visible solo para lectores de pantalla. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.eyebrow {
+    color: var(--celeste);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.9rem;
+}
+
+.lead {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    max-width: 44rem;
+    margin-top: 1.25rem;
+}
+
+.section {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.section-heading {
+    max-width: 44rem;
+    margin-bottom: 2rem;
+}
+
+/* Etiqueta tipo píldora para protocolos y conceptos. */
+.chip {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: var(--celeste);
+}
+
+/* Recuadro de nota / llamada a la atención. */
+.nota {
+    border-left: 4px solid var(--morado);
+    background: rgba(124, 92, 255, 0.10);
+    border-radius: 0 var(--radio) var(--radio) 0;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.nota p { color: var(--blanco-hueso); }
+
+/* ---------- 3. Encabezado y navegación ---------- */
+.site-header {
+    position: sticky;              /* menú siempre disponible (control del usuario) */
+    top: 0;
+    z-index: 30;
+    background: rgba(11, 18, 32, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.header-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.9rem;
+    padding-block: 1.1rem;
+}
+
+.brand {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--blanco-hueso);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    font-size: 1.05rem;
+}
+
+.brand:hover { color: var(--blanco-hueso); }
+
+.brand-icon {
+    color: var(--celeste);
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.brand-subtitle {
+    flex-basis: 100%;
+    margin-left: 2.1rem;
+    color: var(--gris-texto);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+/* Botón del menú móvil: se oculta en pantallas grandes. */
+.nav-toggle {
+    display: none;
+    background: var(--gris-oscuro);
+    color: var(--blanco-hueso);
+    border: 1px solid var(--gris-borde);
+    border-radius: 0.6rem;
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+}
+
+.nav-toggle:hover { border-color: var(--celeste); }
+
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-list a {
+    display: block;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    color: var(--gris-texto);
+    text-decoration: none;
+    font-size: 0.92rem;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+/* Visibilidad del estado: página actual y pasar el cursor. */
+.nav-list a:hover {
+    background: var(--gris-oscuro);
+    color: var(--blanco-hueso);
+}
+
+.nav-list .activo,
+.nav-list a[aria-current="page"] {
+    background: var(--morado);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* ---------- 4. Botones y enlaces ---------- */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.4rem;
+    margin-top: 2rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1.4rem;
+    border: 0;
+    border-radius: 0.7rem;
+    background: var(--morado);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.button:hover {
+    background: #7a58fc;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.button--suave {                 /* variante secundaria (borde en vez de relleno) */
+    background: transparent;
+    border: 1px solid var(--gris-borde);
+    box-shadow: none;
+    color: var(--blanco-hueso);
+}
+
+.button--suave:hover { background: var(--gris-oscuro); }
+
+.text-link {
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--celeste);
+}
+
+.text-link:hover { color: var(--blanco-hueso); }
+
+/* ---------- 5. Hero, franja de datos y páginas internas ---------- */
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+
+.hero-copy, .hero-image {
+    flex: 1;
+    min-width: 0;
+}
+
+.hero h1 span { color: var(--celeste); }
+
+.hero-image { width: 100%; }
+
+.hero-image img {
+    width: 100%;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+}
+
+.hero-image figcaption {
+    margin-top: 0.7rem;
+    font-size: 0.8rem;
+    color: var(--gris-texto);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+    background: var(--azul-noche);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border-left: 3px solid var(--morado);
+    padding-left: 1rem;
+}
+
+.stat strong {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--verde-neon);
+    letter-spacing: -0.02em;
+}
+
+.stat span { font-size: 0.88rem; color: var(--gris-texto); }
+
+/* Introducción de las páginas internas. */
+.page-intro {
+    padding-block: clamp(2.5rem, 6vw, 5rem) 1.5rem;
+    max-width: 48rem;
+}
+
+.page-intro h1 { margin-top: 0.4rem; }
+
+/* ---------- 6. Tarjetas, figuras y listas de contenido ---------- */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.25rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    overflow: hidden;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--morado);
+}
+
+.card-media img {
+    width: 100%;
+    aspect-ratio: 16 / 10;      /* formato fijo: la caja no salta al cargar */
+    object-fit: cover;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.card-body .text-link { margin-top: auto; }
+
+.card-number {
+    font-size: 0.7rem;
+    color: var(--morado-claro);
+    letter-spacing: 0.14rem;
+    font-weight: 700;
+}
+
+.card h3 { font-size: 1.2rem; }
+
+.card p { font-size: 0.95rem; }
+
+/* Rejilla de heurísticas (página de inicio). */
+.heuri-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: 1.1rem;
+}
+
+.heuri {
+    background: var(--azul-noche);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    padding: 1.3rem;
+}
+
+.heuri-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.6rem;
+    background: rgba(56, 189, 248, 0.14);
+    color: var(--celeste);
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+}
+
+.heuri h3 { font-size: 1.02rem; margin-bottom: 0.4rem; }
+.heuri p { font-size: 0.9rem; }
+
+/* Dos columnas: figura + texto (conceptos, arquitectura, creador). */
+.split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+}
+
+.figura img,
+.figura-object {
+    width: 100%;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+}
+
+.figura figcaption,
+.figura .creditos {
+    margin-top: 0.7rem;
+    font-size: 0.8rem;
+    color: var(--gris-texto);
+}
+
+.figura--retrato { max-width: 26rem; }
+
+/* Definiciones cortas en rejilla (sensor vs actuador, IIoT, IoE). */
+.def-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.def {
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    border-top: 3px solid var(--celeste);
+    border-radius: 0 0 var(--radio) var(--radio);
+    padding: 1.4rem;
+}
+
+.def--morado { border-top-color: var(--morado); }
+.def--verde { border-top-color: var(--verde-neon); }
+.def--naranja { border-top-color: var(--naranja); }
+
+.def h3 { margin-bottom: 0.5rem; }
+.def p { font-size: 0.94rem; }
+
+/* Listas con viñeta personalizada. */
+.lista-con {
+    padding-left: 1.2rem;
+    margin-top: 1rem;
+}
+
+.lista-con li {
+    color: var(--gris-texto);
+    margin-bottom: 0.55rem;
+}
+
+.lista-con li::marker { color: var(--celeste); }
+
+/* Etapas numeradas del ciclo IoT. */
+.pasos {
+    counter-reset: paso;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1.1rem;
+    padding: 0;
+    margin-top: 2rem;
+    list-style: none;
+}
+
+.pasos li {
+    counter-increment: paso;
+    background: var(--azul-noche);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    padding: 1.3rem;
+    position: relative;
+}
+
+.pasos li::before {
+    content: counter(paso, decimal-leading-zero);
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--verde-neon);
+    margin-bottom: 0.6rem;
+}
+
+.pasos strong { color: var(--blanco-hueso); display: block; margin-bottom: 0.3rem; }
+.pasos span { font-size: 0.9rem; color: var(--gris-texto); }
+
+/* ---------- 7. Tablas comparativas ---------- */
+/* Contenedor con desplazamiento horizontal: la tabla nunca rompe el móvil. */
+.tabla-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    margin-top: 2rem;
+    background: var(--gris-oscuro);
+}
+
+.tabla {
+    width: 100%;
+    min-width: 46rem;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.tabla caption {
+    caption-side: top;
+    text-align: left;
+    padding: 1rem 1.1rem 0.4rem;
+    color: var(--blanco-hueso);
+    font-weight: 700;
+}
+
+.tabla th,
+.tabla td {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.tabla th {
+    background: var(--azul-noche);
+    color: var(--celeste);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.tabla tbody tr:last-child td { border-bottom: 0; }
+
+.tabla tbody tr:hover td { background: rgba(124, 92, 255, 0.08); }
+
+.tabla td:first-child { color: var(--blanco-hueso); font-weight: 700; }
+
+/* Tarjetas de las 4 capas (arquitectura). */
+.capas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.1rem;
+    margin-top: 2rem;
+}
+
+.capa {
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    padding: 1.4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cada capa recibe un color de acento distinto (misma escala que el diagrama). */
+.capa::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4px;
+    background: var(--celeste);
+}
+
+.capa:nth-child(1)::after { background: var(--verde-neon); }
+.capa:nth-child(2)::after { background: var(--morado); }
+.capa:nth-child(3)::after { background: var(--celeste); }
+.capa:nth-child(4)::after { background: var(--naranja); }
+
+.capa-num {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--gris-texto);
+}
+
+.capa h3 { margin: 0.5rem 0 0.6rem; font-size: 1.08rem; }
+.capa p { font-size: 0.92rem; }
+
+/* ---------- 8. Laboratorio (interacciones con JavaScript) ---------- */
+.lab {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    background: var(--azul-noche);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    padding: clamp(1.3rem, 3vw, 2rem);
+}
+
+/* Dos columnas en escritorio: controles a la izquierda, registro a la derecha. */
+.lab-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+}
+
+.lab-col {
+    display: grid;
+    gap: 1.1rem;
+    align-content: start;
+}
+
+.lab h3 span { color: var(--gris-texto); }
+.lab h3 span.encendido { color: var(--verde-neon); }
+
+.lab-nota { font-size: 0.9rem; }
+
+.lab-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* LED simulado: cambia de color según el estado (visibilidad del estado). */
+.led {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: #233046;
+    border: 3px solid var(--gris-borde);
+    flex-shrink: 0;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.led.encendido {
+    background: var(--verde-neon);
+    border-color: #9dffc9;
+    box-shadow: 0 0 22px rgba(57, 255, 136, 0.75);
+}
+
+.lab-estado {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.8rem;
+    margin: 0;
+}
+
+.lab-estado div {
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    border-radius: 0.8rem;
+    padding: 0.8rem 1rem;
+}
+
+.lab-estado dt {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gris-texto);
+}
+
+.lab-estado dd {
+    margin: 0.25rem 0 0;
+    font-size: 1.3rem;
+    font-weight: 750;
+    color: var(--celeste);
+    font-variant-numeric: tabular-nums;  /* cifras alineadas: más fácil de leer */
+}
+
+.lab-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+/* Registro tipo consola con los mensajes publicados por MQTT. */
+.registro {
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    background: #070b14;
+    border: 1px solid var(--gris-borde);
+    border-radius: 0.8rem;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.82rem;
+    max-height: 13rem;
+    overflow-y: auto;
+}
+
+.registro li {
+    color: #7f8ca6;
+    padding-block: 0.2rem;
+    border-bottom: 1px dashed rgba(42, 52, 80, 0.6);
+}
+
+.registro li:last-child { border-bottom: 0; }
+
+.registro .ok { color: var(--verde-neon); }
+.registro .aviso { color: var(--naranja); }
+
+/* Mensajes de estado (patrón de clase: contenedor + tipo + texto). */
+.mensaje {
+    border: 1px solid var(--gris-borde);
+    border-left-width: 4px;
+    border-radius: 0.7rem;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.93rem;
+    background: var(--gris-oscuro);
+    color: var(--blanco-hueso);
+}
+
+.mensaje:empty { display: none; }        /* sin espacio cuando no hay mensaje */
+
+.mensaje--exito {
+    border-left-color: var(--verde-neon);
+    background: rgba(57, 255, 136, 0.10);
+    color: #b9ffd9;
+}
+
+.mensaje--error {
+    border-left-color: var(--rojo);
+    background: rgba(255, 93, 115, 0.10);
+    color: #ffc9d1;
+}
+
+.mensaje--alerta {
+    border-left-color: var(--naranja);
+    background: rgba(255, 138, 61, 0.10);
+    color: #ffd9be;
+}
+
+.mensaje--info {
+    border-left-color: var(--celeste);
+    background: rgba(56, 189, 248, 0.10);
+    color: #c9ecff;
+}
+
+/* ---------- 9. Perfil y formulario (página del creador) ---------- */
+.perfil {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.perfil-foto {
+    width: 100%;
+    max-width: 22rem;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+}
+
+.perfil-datos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+}
+
+.perfil-datos div {
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    border-radius: 0.8rem;
+    padding: 0.9rem 1.1rem;
+}
+
+.perfil-datos dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+}
+
+.perfil-datos dd { margin: 0.3rem 0 0; color: var(--blanco-hueso); font-weight: 600; }
+
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+    background: var(--azul-noche);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio);
+    padding: clamp(1.3rem, 3vw, 2rem);
+    margin-top: 2rem;
+}
+
+.campo { display: grid; gap: 0.4rem; }
+
+.campo label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--blanco-hueso);
+}
+
+.campo .obligatorio { color: var(--naranja); }
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.97rem;
+    color: var(--blanco-hueso);
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    border-radius: 0.7rem;
+    padding: 0.75rem 0.9rem;
+    transition: border-color 0.18s ease;
+}
+
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover { border-color: var(--morado); }
+
+.campo textarea { min-height: 8.5rem; resize: vertical; }
+
+/* Prevención de errores: el campo inválido se marca en rojo y con aria-invalid. */
+.campo.invalido input,
+.campo.invalido select,
+.campo.invalido textarea {
+    border-color: var(--rojo);
+    background: rgba(255, 93, 115, 0.08);
+}
+
+.campo-nota {
+    font-size: 0.78rem;
+    color: var(--gris-texto);
+}
+
+.campo.invalido .campo-nota { color: #ffc9d1; font-weight: 600; }
+
+.formulario .button { justify-self: start; }
+
+/* ---------- 10. Pie y responsive ---------- */
+.site-footer {
+    border-top: 1px solid var(--gris-borde);
+    background: var(--azul-noche);
+    font-size: 0.82rem;
+    margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.footer-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.6rem;
+}
+
+.footer-layout p { color: var(--gris-texto); }
+
+.footer-layout a { font-weight: 700; text-decoration: none; }
+
+/* ----- Pantallas medianas y grandes: hero en dos columnas ----- */
+@media (min-width: 56rem) {
+    .hero { flex-direction: row; gap: 3rem; }
+    .split { grid-template-columns: 1fr 1fr; }
+    .split--invertido > :first-child { order: 2; }
+    .perfil { grid-template-columns: 22rem 1fr; }
+    .lab-grid { grid-template-columns: 1.15fr 1fr; }
+}
+
+/* ----- Móvil: menú plegable y apilado ----- */
+@media (max-width: 47.99rem) {
+    .nav-toggle { display: block; }
+
+    /* El menú está oculto hasta que se presiona el botón (aria-expanded). */
+    #menu-principal {
+        display: none;
+        flex-basis: 100%;
+    }
+
+    #menu-principal.abierto { display: block; }
+
+    .nav-list { flex-direction: column; }
+
+    .nav-list a {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+
+    .footer-layout { flex-direction: column; align-items: flex-start; }
+    .perfil-foto { margin-inline: auto; }
+}
+
+/* Accesibilidad: quien prefiera menos movimiento no recibe animaciones. */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
