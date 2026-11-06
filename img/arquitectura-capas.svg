@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" role="img" aria-labelledby="titulo-diag desc-diag">
+  <title id="titulo-diag">Arquitectura de cuatro capas de IoT</title>
+  <desc id="desc-diag">Diagrama de abajo hacia arriba: capa de dispositivos con sensores y actuadores, capa de red con Wi-Fi y protocolos MQTT y CoAP, capa de procesamiento en la nube con almacenamiento y analítica, y capa de aplicación con paneles y alertas.</desc>
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1526"/>
+      <stop offset="100%" stop-color="#111a30"/>
+    </linearGradient>
+    <linearGradient id="verde" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f2e22"/>
+      <stop offset="100%" stop-color="#123a2a"/>
+    </linearGradient>
+    <linearGradient id="azul" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#12203f"/>
+      <stop offset="100%" stop-color="#16294f"/>
+    </linearGradient>
+    <linearGradient id="morado" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e1a44"/>
+      <stop offset="100%" stop-color="#272054"/>
+    </linearGradient>
+    <linearGradient id="celeste" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e2c42"/>
+      <stop offset="100%" stop-color="#123852"/>
+    </linearGradient>
+    <marker id="punta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8b93a7"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="640" rx="18" fill="url(#fondo)"/>
+
+  <text x="40" y="56" fill="#f4f6fb" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Arquitectura de 4 capas de IoT</text>
+  <text x="40" y="84" fill="#8b93a7" font-family="Segoe UI, Arial, sans-serif" font-size="15">Los datos suben hacia la nube; los comandos bajan hacia el dispositivo.</text>
+
+  <!-- CAPA 4 · APLICACIÓN -->
+  <rect x="120" y="110" width="800" height="104" rx="14" fill="url(#celeste)" stroke="#38bdf8" stroke-width="2"/>
+  <text x="146" y="146" fill="#38bdf8" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">CAPA 4 · APLICACIÓN</text>
+  <text x="146" y="176" fill="#f4f6fb" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600">Paneles web, apps móviles y alertas</text>
+  <text x="146" y="199" fill="#9fb4c7" font-family="Segoe UI, Arial, sans-serif" font-size="14">Visualización de datos, notificaciones y control remoto.</text>
+
+  <!-- CAPA 3 · PROCESAMIENTO -->
+  <rect x="120" y="228" width="800" height="104" rx="14" fill="url(#morado)" stroke="#7c5cff" stroke-width="2"/>
+  <text x="146" y="264" fill="#a78bfa" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">CAPA 3 · PROCESAMIENTO Y NUBE</text>
+  <text x="146" y="294" fill="#f4f6fb" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600">Almacenamiento, reglas y analítica</text>
+  <text x="146" y="317" fill="#9fb4c7" font-family="Segoe UI, Arial, sans-serif" font-size="14">Bases de datos, motores de reglas, aprendizaje automático.</text>
+
+  <!-- CAPA 2 · RED -->
+  <rect x="120" y="346" width="800" height="104" rx="14" fill="url(#azul)" stroke="#4f7cff" stroke-width="2"/>
+  <text x="146" y="382" fill="#7aa0ff" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">CAPA 2 · RED Y COMUNICACIÓN</text>
+  <text x="146" y="412" fill="#f4f6fb" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600">Wi-Fi, Bluetooth, LoRa y celular</text>
+  <text x="146" y="435" fill="#9fb4c7" font-family="Segoe UI, Arial, sans-serif" font-size="14">Transporta el mensaje con MQTT, CoAP o HTTP.</text>
+
+  <!-- CAPA 1 · DISPOSITIVOS -->
+  <rect x="120" y="464" width="800" height="104" rx="14" fill="url(#verde)" stroke="#39ff88" stroke-width="2"/>
+  <text x="146" y="500" fill="#39ff88" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">CAPA 1 · DISPOSITIVOS (BORDE)</text>
+  <text x="146" y="530" fill="#f4f6fb" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600">Sensores, actuadores y microcontroladores</text>
+  <text x="146" y="553" fill="#9fb4c7" font-family="Segoe UI, Arial, sans-serif" font-size="14">Arduino, ESP32 y Raspberry Pi capturan y ejecutan.</text>
+
+  <!-- Flechas de subida y bajada -->
+  <line x1="86" y1="545" x2="86" y2="140" stroke="#8b93a7" stroke-width="2.5" marker-end="url(#punta)"/>
+  <text x="40" y="352" fill="#8b93a7" font-family="Segoe UI, Arial, sans-serif" font-size="13" transform="rotate(-90 60 352)" text-anchor="middle">datos que suben</text>
+
+  <line x1="946" y1="140" x2="946" y2="545" stroke="#8b93a7" stroke-width="2.5" marker-end="url(#punta)"/>
+  <text x="920" y="352" fill="#8b93a7" font-family="Segoe UI, Arial, sans-serif" font-size="13" transform="rotate(90 920 352)" text-anchor="middle">comandos que bajan</text>
+
+  <text x="480" y="610" fill="#5d667c" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="middle">Figura 1 · El borde (edge) ejecuta en tiempo real; la nube decide con vista global.</text>
+</svg>
